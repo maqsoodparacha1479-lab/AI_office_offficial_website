@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Software House - Advanced Artificial Intelligence</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js"></script>
+    <style> -->
+
+           <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    
+    <!-- Sphere animation -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+
+        let renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById("model-container").appendChild(renderer.domElement);
+
+        let geometry = new THREE.SphereGeometry(5, 32, 32);
+        let material = new THREE.MeshBasicMaterial({ color: 0x6e48aa, wireframe: true });
+        let sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        camera.position.z = 15;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            sphere.rotation.x += 0.002;
+            sphere.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    });
+    </script>
+</body>
+    
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --secondary: #0072ff;
+            --dark: #0a192f;
+            --light: #e6f1ff;
+            --accent: #64ffda;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            
+            overflow-x: hidden;
+            background-color: var(--dark);
+            color: var(--light);
+            cursor: none;
+        }
+        
+        #vanta-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+       .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%); /* Center cursor on mouse */
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%); /* Center follower on mouse */
+            transition: transform 0.3s ease;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button:hover {
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: transform 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+            transform-origin: bottom left;
+            transform: scaleX(0);
+            z-index: -1;
+        }
+        
+        .cta-button:hover:before {
+            transform: scaleX(1);
+            transform-origin: top right;
+        }
+        
+        .floating-cubes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.5) 0%, rgba(100, 255, 218, 0) 70%);
+            filter: blur(5px);
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px) rotate(5deg);
+            }
+        }
+        
+        .features {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 25, 47, 0.8);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            color: var(--accent);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.1);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(100, 255, 218, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+        
+        .parallax-element {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .cube {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            opacity: 0;
+            animation: fadeInOut 3s infinite alternate;
+            filter: blur(2px);
+            z-index: 3;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        .ai-brain {
+            position: absolute;
+            opacity: 0.5;
+            filter: blur(1px);
+            z-index: 2;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div id="vanta-canvas"></div>
+    <div id="canvas-container"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Software House </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    header {
+      background-color: #1e293b;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #38bdf8;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #1e293b;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 20px;
+        display: none;
+      }
+
+      nav ul.show {
+        display: block;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">AI Software House </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav>
+      <ul id="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="{% url 'solution1' %}">Features</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <body>
+    <!-- Background container -->
+    <div id="model-container" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('nav-links');
+      menu.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+    
+    <main>
+        <section class="hero">
+            <h1>Revolutionizing Intelligence with AI Software House 
+            </h1>
+            <p>Harness the power of next-generation artificial intelligence to transform your business and accelerate growth with our cutting-edge solutions.</p>
+           
+            
+            <div id="floating-elements-container">
+                <!-- 3D floating elements will be added by JavaScript -->
+            </div>
+        </section>
+        
+        <section class="features">
+            <h2 class="section-title">Our Services</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Deep Learning</h3>
+                    <p>Our neural networks learn complex patterns in your data to deliver unprecedented accuracy and insights.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Natural Language</h3>
+                    <p>AI that understands context and nuance, enabling human-like conversations and content generation.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Forecast trends and behaviors with machine learning models tailored to your specific needs.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Computer Vision</h3>
+                    <p>Advanced image and video analysis that sees and understands visual content like humans do.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+
+
+
+      <section class="features">
+            <h2 class="section-title">Our Course</h2>
+            <div class="cards-container">
+                <div class="card">
+                   
+                    <h3>Machine Learning</h3>
+                    <p>Machine Learning (ML) is a branch of artificial intelligence that enables computers to learn from data and improve their performance without being explicitly programmed. It helps systems make predictions, automate tasks, and uncover patterns, making it essential for smart technologies like recommendation engines, fraud detection, and self-driving cars.
+
+</p>
+                </div>
+                <div class="card">
+                    
+                    <h3> CNS</h3>
+                    <p>Computer and Network Security (CNS) focuses on protecting computer systems, networks, and data from unauthorized access, cyber attacks, and damage. It involves using firewalls, encryption, antivirus software, and secure protocols to ensure confidentiality, integrity, and availability of information across digital platforms</p>
+                </div>
+                <div class="card">
+                  
+                    <h3>AI</h3>
+                    <p>Artificial Intelligence (AI) is the simulation of human intelligence in machines that are designed to think, learn, and make decisions. AI powers technologies like virtual assistants, facial recognition, chatbots, and self-driving cars, helping automate tasks and solve problems with human-like efficiency.</p>
+                </div>
+                <div class="card">
+                    
+                    <h3>Data Science</h3>
+                    <p>Data Science is the process of collecting, analyzing, and interpreting large amounts of data to uncover patterns and insights. It combines statistics, programming, and machine learning to help businesses make smarter decisions, predict trends, and solve complex problems using real-world data.</p>
+                
+                
+
+</p>
+
+
+                </div>
+                <div class="card">
+                    
+                    <h3> Web Development</h3>
+                    <p>Web Development is the process of creating and maintaining websites or web applications. It involves designing user interfaces, writing code for functionality, and ensuring responsive performance across devices. Web development brings digital ideas to life using technologies like HTML, CSS, JavaScript, and frameworks such as Django or React.
+                
+                </div>
+                 <div class="card">
+                    
+                    <h3> Python Developer</h3>
+                    <p>Python Developers specialize in building software, web applications, and automation tools using the Python programming language. Known for its simplicity and power, Python is widely used in web development, data science, machine learning, and backend systems. Python developers play a key role in creating efficient, scalable, and secure solutions.
+                    
+                
+                </div>
+            </div>
+             
+        </section>
+    </main>
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Section</title>
+  <style>
+    .team-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #6ec11626;
+      padding: 40px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .team-text {
+      flex: 1;
+      padding-right: 30px;
+    }
+
+    .team-text h2 {
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .team-text p {
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .team-img {
+      flex: 0 0 250px;
+    }
+
+    .team-img img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.685);
+    }
+
+    @media (max-width: 768px) {
+      .team-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .team-text {
+        padding: 0;
+      }
+
+      .team-img {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ CEO Section -->
+  <div class="team-section">
+    <div class="team-text">
+      <h2>Mr. Asif Iqbal (CEO)</h2>
+      <p>
+       This video is a quick tour of hall road Lahore, Pakistan. My channel's name is based on the name of this bazar. I love being in this market. If you dont know anyone on hall road then you just made a contact :) Reach me on my whatsapp if you facing any issue in your project . My expertise include Arduino and RaspberryPi programming, Python Programming, Robots and drones.
+
+I am ASIF IQBAL and an Electrical Engineer From Hall Road Lahore.
+You can contact me @ whatsapp +923057736599
+i make student Projects too [Arduino,PIC,8051,8059,CNC, Raspberrypi,PLC,3D Printers etc]
+
+      </p>
+    </div>
+    <div class="team-img">
+      {% comment %} <img src="https://www.smart-algorithm.co/static/images/services/service-center.jpeg" alt="CEO Picture"> {% endcomment %}
+    </div>
+  </div>
+
+  <!-- ✅ Manager Section -->
+  <div class="team-section">
+    <div class="team-text">
+      <h2>Mr. Maqsood Paracha (Manager)</h2>
+      <p>
+        Mr. Maqsood Paracha is the operations manager, handling daily workflows, client communication, and team coordination. His strong management skills and focus on quality have made him a key asset in achieving our goals.
+      </p>
+    </div>
+    <div class="team-img">
+      <img src="https://media-mct1-1.cdn.whatsapp.net/v/t61.24694-24/516749431_1376117590591332_9013829978075197604_n.jpg?ccb=11-4&oh=01_Q5Aa2AF_u75SI6VQo-cyJFXlhIaouy3oiHYUKuaG4UFPxrGfYQ&oe=6881EB1D&_nc_sid=5e03e0&_nc_cat=100" alt="Manager Picture">
+    </div>
+  </div>
+
+
+
+  <!-- ✅ Manager Section -->
+  <div class="team-section">
+    <div class="team-text">
+      <h2>MR Hashir (Manager)</h2>
+      <p>
+        Mr. Hashir is the operations manager, handling daily workflows, client communication, and team coordination. His strong management skills and focus on quality have made him a key asset in achieving our goals.
+      </p>
+    </div>
+    <div class="team-img">
+      <img src="https://media-mct1-1.cdn.whatsapp.net/v/t61.24694-24/491847628_693915506731121_3548378617025220198_n.jpg?ccb=11-4&oh=01_Q5Aa2AHPCrzoesLEwjRgb0hqAIp23iF4pRukNxAqDUFX-NHmAw&oe=6881EB89&_nc_sid=5e03e0&_nc_cat=107">
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+    
+
+
+    
+    <script>
+        // Add interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const footer = document.querySelector('.footer-3d');
+            const cubes = document.querySelectorAll('.floating-cube');
+            
+            // Parallax effect for the footer
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                footer.style.transform = `perspective(1000px) rotateX(${5 + scrollPosition * 0.1}deg)`;
+                
+                cubes.forEach((cube, index) => {
+                    cube.style.transform = `translateY(${scrollPosition * 0.1}px) rotateX(${45 + scrollPosition * 0.05}deg) rotateY(${45 + scrollPosition * 0.05}deg)`;
+                });
+            });
+            
+            // Rotate cubes on mouse move
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                cubes.forEach((cube, index) => {
+                    cube.style.transform = `rotateX(${45 + y * 20}deg) rotateY(${45 + x * 20}deg)`;
+                });
+            });
+            
+            // Animate logo letters individually
+            const logoLetters = document.querySelectorAll('.logo-text span');
+            logoLetters.forEach((letter, index) => {
+                letter.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Software House Footer</title>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #16213e);
+            color: var(--light-color);
+            padding: 60px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .company-name:hover {
+            transform: scale(1.05);
+        }
+        
+        .tagline {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Animations */
+        .floating-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(58, 134, 255, 0.05);
+            animation: float 15s infinite linear;
+        }
+        
+        .circle:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            left: 70%;
+            animation-delay: -3s;
+        }
+        
+        .circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            left: 80%;
+            animation-delay: -5s;
+        }
+        
+        .circle:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            top: 50%;
+            left: 30%;
+            animation-delay: -7s;
+        }
+        
+        .circle:nth-child(5) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            left: 60%;
+            animation-delay: -9s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        /* Newsletter Form */
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .newsletter-btn {
+            padding: 0 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-column h3 {
+                margin-bottom: 15px;
+            }
+            
+            .footer-bottom {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <div class="floating-circles">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="footer-logo">
+  <!-- Logo -->
+  <img src="https://www.smart-algorithm.co/static/images/footer-logo.png"
+       alt="AI Software House Logo"
+       width="100" />
+        
+        <div class="footer-container">
+            
+            <div class="footer-logo">
+            
+                <h2 class="company-name">AI Software House</h2>
+                <p class="tagline">Building intelligent solutions for the future powered by artificial intelligence.</p>
+                <div class="social-icons">
+                   
+                   <a href="https://www.facebook.com/profile.php?id=100094054661812" target="_blank" class="social-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+  </svg>
+</a>
+
+                 <a href="https://www.facebook.com/profile.php?id=100094054661812" target="_blank" class="social-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53
+             4.48 4.48 0 0 0-7.86 3v1
+             A10.66 10.66 0 0 1 3 4s-4 9 5 13
+             a11.64 11.64 0 0 1-7 2
+             c9 5 20 0 20-11.5
+             a4.5 4.5 0 0 0-.08-.83
+             A7.72 7.72 0 0 0 23 3z">
+    </path>
+  </svg>
+</a>
+
+                    <a href="https://www.facebook.com/profile.php?id=100094054661812" target="_blank">
+  <div class="social-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </div>
+</a>
+
+                 <a href="https://www.instagram.com/yourusername" target="_blank">
+  <div class="social-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </div>
+</a>
+
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'solution1' %}">Services</a></li>
+                    <!-- <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li> -->
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">AI Development</a></li>
+                    <li><a href="#">Machine Learning</a></li>
+                    <li><a href="#">Data Analytics</a></li>
+                    <li><a href="#">Automation</a></li>
+                    <li><a href="#">Cloud Solutions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for the latest updates and insights.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email">
+                    <button type="submit" class="newsletter-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 AI Software House. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation enhancement for floating circles
+        document.addEventListener('DOMContentLoaded', function() {
+            const circles = document.querySelectorAll('.circle');
+            
+            circles.forEach(circle => {
+                // Randomize initial positions slightly
+                const randomX = Math.random() * 20 - 10;
+                const randomY = Math.random() * 20 - 10;
+                circle.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                
+                // Randomize animation duration
+                const duration = 12 + Math.random() * 6;
+                circle.style.animationDuration = `${duration}s`;
+            });
+            
+            // Add hover effect to footer links
+            const footerLinks = document.querySelectorAll('.footer-links a');
+            footerLinks.forEach(link => {
+                link.addEventListener('mouseover', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                link.addEventListener('mouseout', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+            
+            // Newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if(newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('.newsletter-input');
+                    if(input.value.trim() !== '') {
+                        // Here you would typically send the email to your server
+                        alert('Thank you for subscribing!');
+                        input.value = '';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+    
+
+    <script>
+        // Initialize Three.js scene
+        const canvasContainer = document.getElementById('canvas-container');
+        let scene, camera, renderer, particles = [];
+
+        function initThreeJS() {
+            // Scene setup
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            canvasContainer.appendChild(renderer.domElement);
+
+            // Camera position
+            camera.position.z = 10;
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0x00ffcc, 1);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+
+            // Create 3D objects
+            createFloatingObjects(20);
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        }
+
+        function createFloatingObjects(count) {
+            const geometry = new THREE.IcosahedronGeometry(0.5, 0);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x00ffcc,
+                shininess: 100,
+                transparent: true,
+                opacity: 0.7,
+                specular: 0x111111
+            });
+
+            for (let i = 0; i < count; i++) {
+                const cube = new THREE.Mesh(geometry, material);
+                
+                // Random position
+                cube.position.x = Math.random() * 20 - 10;
+                cube.position.y = Math.random() * 20 - 10;
+                cube.position.z = Math.random() * 20 - 10;
+                
+                // Random scale
+                const scale = Math.random() * 2 + 0.5;
+                cube.scale.set(scale, scale, scale);
+                
+                // Store original positions for floating animation
+                cube.userData = {
+                    originalX: cube.position.x,
+                    originalY: cube.position.y,
+                    originalZ: cube.position.z,
+                    speedX: Math.random() * 0.02 - 0.01,
+                    speedY: Math.random() * 0.02 - 0.01,
+                    speedZ: Math.random() * 0.02 - 0.01,
+                    rotationSpeedX: Math.random() * 0.02 - 0.01,
+                    rotationSpeedY: Math.random() * 0.02 - 0.01,
+                    rotationSpeedZ: Math.random() * 0.02 - 0.01
+                };
+                
+                scene.add(cube);
+                particles.push(cube);
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate particles
+            particles.forEach(particle => {
+                particle.position.x = particle.userData.originalX + Math.sin(Date.now() * 0.001 * particle.userData.speedX) * 2;
+                particle.position.y = particle.userData.originalY + Math.sin(Date.now() * 0.001 * particle.userData.speedY) * 2;
+                
+                particle.rotation.x += particle.userData.rotationSpeedX;
+                particle.rotation.y += particle.userData.rotationSpeedY;
+                particle.rotation.z += particle.userData.rotationSpeedZ;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Vanta.js background
+        VANTA.NET({
+            el: "#vanta-canvas",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x64ffda,
+            backgroundColor: 0x0a192f,
+            points: 10.00,
+            maxDistance: 20.00,
+            spacing: 15.00
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            // Regular cursor
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Follower cursor with delay
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+            
+            // Move 3D objects with mouse
+            const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            
+            // Update camera position based on mouse
+            camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 3 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+        });
+        
+        // Hover effects
+        document.querySelectorAll('a, button').forEach(link => {
+            link.addEventListener('mouseover', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursorFollower.style.transform = 'scale(0.5)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursorFollower.style.transform = 'scale(1)';
+            });
+        });
+
+        // Initialize everything when the page loads
+        window.addEventListener('load', () => {
+            initThreeJS();
+            
+            // Add some floating elements for decoration (2D)
+            const container = document.getElementById('floating-elements-container');
+            const colors = ['#00ffcc70', '#0072ff70', '#64ffda70', '#0a192f70'];
+            
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = (Math.random() * 100 + 30) + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = (Math.random() * 5) + 's';
+                element.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(element);
+            }
+            
+            // Create floating particles in HTML
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cube';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.width = (Math.random() * 40 + 10) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = `rgba(100, 255, 218, ${Math.random() * 0.3 + 0.1})`;
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(particle);
+            }
+            
+            // Add some AI-themed floating elements
+            for (let i = 0; i < 3; i++) {
+                const aiElement = document.createElement('div');
+                aiElement.className = 'ai-brain';
+                aiElement.style.left = Math.random() * 100 + 'vw';
+                aiElement.style.top = Math.random() * 100 + 'vh';
+                aiElement.style.width = (Math.random() * 200 + 100) + 'px';
+                aiElement.style.height = particle.style.width;
+                aiElement.innerHTML = `<img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/97c9ccd4-2511-4e54-9bdb-9c450e8fbf7f.png" alt="Abstract futuristic AI neural network visualization with glowing blue connections" />`;
+                document.body.appendChild(aiElement);
+            }
+        });
+    </script>
+</body>
+</html>
+
